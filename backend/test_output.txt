@@ -1,0 +1,11 @@
+Testing Regression Model Variance...
+Prediction (Depth=100):  ERROR
+Prediction (Depth=9000): ERROR
+Small Response: {
+  "detail": "The feature names should match those that were passed during fit.\nFeature names unseen at fit time:\n- koi_qof\n"
+}
+Large Response: {
+  "detail": "The feature names should match those that were passed during fit.\nFeature names unseen at fit time:\n- koi_qof\n"
+}
+
+ERROR: Could not compare predictions.
