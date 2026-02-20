@@ -116,24 +116,6 @@ FEATURE_DEFINITIONS = {
         'typical': 20,
         'required': False
     },
-    'koi_max_mult_ev': {
-        'name': 'Maximum Multiple Event Statistic',
-        'description': 'Maximum multiple event statistic from Kepler',
-        'unit': '',
-        'min': 0,
-        'max': 500,
-        'typical': 50,
-        'required': False
-    },
-    'koi_tce_plnt_num': {
-        'name': 'TCE Planet Number',
-        'description': 'Planet number in the TCE (Threshold Crossing Event)',
-        'unit': '',
-        'min': 1,
-        'max': 7,
-        'typical': 1,
-        'required': False
-    },
     'koi_kepmag': {
         'name': 'Kepler Magnitude',
         'description': 'Kepler magnitude of the target',
@@ -210,9 +192,9 @@ def validate_features(features: Dict[str, float]) -> Dict[str, float]:
         
         validated[feature_name] = value
     
-    # Fill in default values for missing required features
+    # Fill in default values for missing features
     for feature_name, feature_def in FEATURE_DEFINITIONS.items():
-        if feature_def['required'] and feature_name not in validated:
+        if feature_name not in validated:
             validated[feature_name] = feature_def['typical']
     
     return validated

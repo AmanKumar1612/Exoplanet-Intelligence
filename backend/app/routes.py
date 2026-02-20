@@ -40,8 +40,7 @@ async def classification_predict(request: ClassificationRequest):
     """
     try:
         # Validate input features
-        # validated_features = validate_features(request.features)
-        validated_features = request.features
+        validated_features = validate_features(request.features)
         
         # Convert to DataFrame
         df = pd.DataFrame([validated_features])
@@ -84,8 +83,7 @@ async def regression_predict(request: RegressionRequest):
     """
     try:
         # Validate input features
-        # validated_features = validate_features(request.features)
-        validated_features = request.features
+        validated_features = validate_features(request.features)
         
         # Convert to DataFrame
         df = pd.DataFrame([validated_features])

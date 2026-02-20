@@ -18,6 +18,7 @@ const FEATURE_CONFIG = [
   { key: 'koi_model_snr', name: 'Signal-to-Noise', unit: '', min: 0, max: 500, default: 20, description: 'Model signal-to-noise ratio' },
   { key: 'koi_kepmag', name: 'Kepler Magnitude', unit: 'mag', min: 5, max: 20, default: 14, description: 'Kepler magnitude of the target' },
   { key: 'koi_score', name: 'Disposition Score', unit: '', min: 0, max: 1, default: 0.5, description: 'Probability score for planet disposition' },
+  { key: 'koi_qof', name: 'Quality Flag', unit: '', min: 0, max: 1, default: 0.9, description: 'Quality flag for the KOI (usually close to 1)' },
 ];
 
 const InputForm = ({ taskType, onSubmit, isLoading }) => {
@@ -29,7 +30,7 @@ const InputForm = ({ taskType, onSubmit, isLoading }) => {
 
   const handleChange = (key, value) => {
     setFeatures(prev => ({ ...prev, [key]: value }));
-    
+
     // Clear error when user types
     if (errors[key]) {
       setErrors(prev => ({ ...prev, [key]: null }));
@@ -46,12 +47,12 @@ const InputForm = ({ taskType, onSubmit, isLoading }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate all features
     const allErrors = validateAllFeatures(features, FEATURE_CONFIG);
     setErrors(allErrors);
     setTouched(FEATURE_CONFIG.reduce((acc, f) => ({ ...acc, [f.key]: true }), {}));
-    
+
     if (Object.keys(allErrors).length === 0) {
       onSubmit(features);
     }
@@ -78,7 +79,7 @@ const InputForm = ({ taskType, onSubmit, isLoading }) => {
                 {feature.unit ? `(${feature.unit})` : ''} • Range: {feature.min} - {feature.max}
               </span>
             </label>
-            
+
             <div className="relative">
               <input
                 type="number"
@@ -89,16 +90,16 @@ const InputForm = ({ taskType, onSubmit, isLoading }) => {
                 className={getFieldClass(feature.key)}
                 placeholder={`Enter ${feature.name.toLowerCase()}`}
               />
-              
+
               {touched[feature.key] && !errors[feature.key] && (
                 <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-green-500" />
               )}
-              
+
               {errors[feature.key] && (
                 <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-red-500" />
               )}
             </div>
-            
+
             {errors[feature.key] && (
               <p className="mt-1 text-sm text-red-500">{errors[feature.key]}</p>
             )}
