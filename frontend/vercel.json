@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://exoplanet-intelligence.onrender.com/api/:path*"
+        }
+    ]
+}

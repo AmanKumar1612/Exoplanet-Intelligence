@@ -1,8 +1,9 @@
 import axios from 'axios';
-console.log("ENV VALUE:", import.meta.env.VITE_API_URL);
 
-// Backend base URL from environment
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+// Use relative URL so Vercel proxy handles routing (eliminates CORS)
+// In dev, Vite proxy (vite.config.js) routes /api → localhost:8000
+// In production, vercel.json rewrites /api/* → Render backend
+const API_BASE_URL = '';
 
 // Create axios instance
 const apiClient = axios.create({
@@ -12,6 +13,7 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
 
 // Response interceptor (clean error handling)
 apiClient.interceptors.response.use(
