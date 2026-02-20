@@ -24,27 +24,29 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
-# ===============================
-# ✅ PRODUCTION CORS CONFIGURATION
-# ===============================
-
+# Configure CORS
+# Define CORS origins explicitly
 CORS_ORIGINS = [
     # Local Development
     "http://localhost:5173",
     "http://localhost:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:3000",
-
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
     # Production Frontend (Vercel)
     "https://exoplanet-intelligence.vercel.app",
+    "http://exoplanet-intelligence.vercel.app",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://exoplanet-intelligence.vercel.app"],
+    allow_origins=CORS_ORIGINS,
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:[0-9]+)?|https://exoplanet-intelligence(-[a-z0-9]+)?\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Type", "Authorization"],
 )
 
 # ===============================
