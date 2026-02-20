@@ -19,8 +19,7 @@ sqlalchemy==2.0.23
 pydantic==2.5.2
 pydantic-settings==2.1.0
 
-# CORS
-python-cors==0.1.7
+
 
 # Environment
 python-dotenv==1.0.0
