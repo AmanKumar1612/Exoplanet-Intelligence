@@ -30,29 +30,29 @@ apiClient.interceptors.response.use(
 // -------------------- API CALLS --------------------
 
 export const predictClassification = async (features) => {
-  return await apiClient.post('/predict/classification', {
+  return await apiClient.post('/api/predict/classification', {
     features,
   });
 };
 
 export const predictRegression = async (features) => {
-  return await apiClient.post('/predict/regression', {
+  return await apiClient.post('/api/predict/regression', {
     features,
   });
 };
 
 export const getPredictionHistory = async (limit = 50, offset = 0) => {
-  return await apiClient.get('/predictions/history', {
+  return await apiClient.get('/api/predictions/history', {
     params: { limit, offset },
   });
 };
 
 export const getModelInfo = async () => {
-  return await apiClient.get('/models/info');
+  return await apiClient.get('/api/models/info');
 };
 
 export const checkHealth = async () => {
-  return await apiClient.get('/health');
+  return await apiClient.get('/api/health');
 };
 
 export default apiClient;
