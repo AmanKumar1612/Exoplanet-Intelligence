@@ -2,7 +2,7 @@
 Main FastAPI Application - Exoplanet Intelligence System
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import os
@@ -15,6 +15,8 @@ from routes import router
 from database import init_db, close_db
 from model_loader import load_models
 
+
+
 # Create FastAPI app
 app = FastAPI(
     title="Exoplanet Intelligence System API",
@@ -24,7 +26,7 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
-# Configure CORS - Allow all origins for public API
+# Standard CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -32,6 +34,31 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Belt-and-suspenders: also inject CORS headers via middleware decorator
+# This fires on EVERY request, guaranteeing headers are always present.
+@app.middleware("http")
+async def add_cors_headers(request: Request, call_next):
+    # Handle OPTIONS preflight directly
+    if request.method == "OPTIONS":
+        origin = request.headers.get("origin", "*")
+        return Response(
+            status_code=200,
+            headers={
+                "Access-Control-Allow-Origin": origin,
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Max-Age": "86400",
+            },
+        )
+    response = await call_next(request)
+    origin = request.headers.get("origin", "*")
+    response.headers["Access-Control-Allow-Origin"] = origin
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return response
+
 
 # ===============================
 # Include API Routes
