@@ -45,7 +45,7 @@ const Home = () => {
           Exoplanet Intelligence System
         </h1>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Machine learning-powered predictions for exoplanet classification and radius estimation
+          Machine learning powered predictions for exoplanet classification and radius estimation
           using NASA Kepler mission data.
         </p>
       </div>
