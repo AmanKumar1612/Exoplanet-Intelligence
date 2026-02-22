@@ -63,14 +63,9 @@ const Home = () => {
           <br />
           <span style={{ fontSize: '0.7em', opacity: 0.85 }}>System</span>
         </h1>
-<<<<<<< HEAD
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          Machine learning powered predictions for exoplanet classification and radius estimation
-=======
 
         <p className="max-w-xl mx-auto text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-          Machine learning–powered predictions for exoplanet classification and radius estimation
->>>>>>> f533504 (feat: improve UI/CSS with nebula theme, glassmorphism, and animations)
+          Machine learning powered predictions for exoplanet classification and radius estimation
           using NASA Kepler mission data.
         </p>
       </div>
