@@ -2,126 +2,482 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===================== Google Fonts ===================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ===================== CSS Variables ===================== */
 :root {
-  --primary-color: #6366f1;
-  --secondary-color: #8b5cf6;
-  --accent-color: #06b6d4;
-  --bg-dark: #0f172a;
-  --bg-card: #1e293b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  --primary: #6366f1;
+  --primary-glow: #818cf8;
+  --secondary: #8b5cf6;
+  --accent: #06b6d4;
+  --accent-glow: #22d3ee;
+  --green: #10b981;
+  --red: #f43f5e;
+  --bg-dark: #080b18;
+  --bg-mid: #0f172a;
+  --bg-card: #131c2e;
+  --bg-card2: #1a2540;
+  --border: rgba(99, 102, 241, 0.18);
+  --border-hover: rgba(129, 140, 248, 0.4);
+  --text-primary: #f0f4ff;
+  --text-secondary: #8b9dc3;
+  --text-muted: #4a5a7a;
 }
 
-* {
+/* ===================== Reset ===================== */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  min-height: 100vh;
+/* ===================== Body & Stars ===================== */
+html {
+  scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+body {
+  font-family: 'Inter', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated nebula gradient background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 20%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(139, 92, 246, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 70%),
+    linear-gradient(160deg, #080b18 0%, #0e1525 40%, #111827 70%, #0a0f1e 100%);
+  z-index: -2;
+  animation: nebulaShift 18s ease-in-out infinite alternate;
+}
+
+/* Floating star dots */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 5% 8%, rgba(255, 255, 255, 0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 22%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 50%, rgba(255, 255, 255, 0.50) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 5%, rgba(255, 255, 255, 0.40) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 70%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 35%, rgba(255, 255, 255, 0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 90%, rgba(255, 255, 255, 0.30) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 15%, rgba(255, 255, 255, 0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 60%, rgba(255, 255, 255, 0.50) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 40%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(2px 2px at 20% 80%, rgba(129, 140, 248, 0.45) 0%, transparent 100%),
+    radial-gradient(2px 2px at 60% 10%, rgba(168, 85, 247, 0.40) 0%, transparent 100%),
+    radial-gradient(2px 2px at 80% 45%, rgba(34, 211, 238, 0.35) 0%, transparent 100%);
+  z-index: -1;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+/* ===================== Scrollbar ===================== */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--bg-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6366f1;
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8b5cf6;
+  background: var(--primary-glow);
 }
 
-/* Animations */
-@keyframes fadeIn {
+/* ===================== Keyframes ===================== */
+@keyframes nebulaShift {
+  from {
+    opacity: 0.8;
+    filter: hue-rotate(0deg);
+  }
+
+  to {
+    opacity: 1;
+    filter: hue-rotate(20deg);
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.6;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(28px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.4), 0 0 20px rgba(99, 102, 241, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 16px rgba(129, 140, 248, 0.7), 0 0 40px rgba(99, 102, 241, 0.3);
+  }
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes borderGlow {
+
+  0%,
+  100% {
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  50% {
+    border-color: rgba(129, 140, 248, 0.7);
+  }
+}
+
+/* ===================== Animation Classes ===================== */
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeInUp 0.55s cubic-bezier(.22, .68, 0, 1.2) both;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.45s cubic-bezier(.22, .68, 0, 1.2) both;
 }
 
 .animate-pulse-slow {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Glass effect */
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.4s ease both;
+}
+
+/* ===================== Glass Effect ===================== */
 .glass {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(19, 28, 46, 0.75);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--border);
 }
 
-/* Gradient text */
+.glass-hover:hover {
+  background: rgba(26, 37, 64, 0.85);
+  border-color: var(--border-hover);
+}
+
+/* ===================== Gradient Text ===================== */
 .gradient-text {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 45%, #22d3ee 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Button styles */
+.gradient-text-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===================== Glow Utilities ===================== */
+.glow-indigo {
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.5), 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.5), 0 0 30px rgba(6, 182, 212, 0.2);
+}
+
+.glow-green {
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5), 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+.glow-red {
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.5), 0 0 30px rgba(244, 63, 94, 0.2);
+}
+
+/* ===================== Button Styles ===================== */
 .btn-primary {
-  @apply px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg font-semibold 
-         hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 
-         transform hover:scale-105 shadow-lg hover:shadow-indigo-500/25;
+  @apply relative px-7 py-3 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 transform hover:scale-105 active:scale-95;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 60%, #06b6d4 100%);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #818cf8, #a78bfa, #22d3ee);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 28px rgba(99, 102, 241, 0.6), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+}
+
+.btn-primary>* {
+  position: relative;
+  z-index: 1;
 }
 
 .btn-secondary {
-  @apply px-4 py-2 bg-gray-700 rounded-lg font-medium hover:bg-gray-600 
-         transition-all duration-200 border border-gray-600;
+  @apply px-5 py-2.5 rounded-xl font-medium transition-all duration-200;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: var(--text-secondary);
 }
 
-/* Input styles */
+.btn-secondary:hover {
+  background: rgba(42, 55, 80, 0.9);
+  border-color: rgba(129, 140, 248, 0.5);
+  color: var(--text-primary);
+}
+
+/* ===================== Input Styles ===================== */
 .input-field {
-  @apply w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg 
-         focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 
-         transition-all duration-200 outline-none text-white placeholder-gray-500;
+  @apply w-full px-4 py-3 rounded-xl outline-none transition-all duration-200;
+  background: rgba(8, 11, 24, 0.7);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: var(--text-primary);
+  font-size: 0.9rem;
 }
 
-/* Card styles */
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.input-field:focus {
+  border-color: rgba(129, 140, 248, 0.7);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12), 0 0 16px rgba(99, 102, 241, 0.15);
+  background: rgba(13, 17, 32, 0.9);
+}
+
+.input-field.border-red-500 {
+  border-color: rgba(244, 63, 94, 0.7) !important;
+}
+
+.input-field.border-green-500 {
+  border-color: rgba(16, 185, 129, 0.7) !important;
+}
+
+/* ===================== Card Styles ===================== */
 .card {
-  @apply bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 
-         shadow-xl transition-all duration-300 hover:border-indigo-500/30;
+  background: linear-gradient(145deg, rgba(19, 28, 46, 0.9), rgba(13, 18, 35, 0.95));
+  backdrop-filter: blur(14px);
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-/* Tooltip styles */
+.card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 20px rgba(99, 102, 241, 0.08);
+}
+
+/* ===================== Shimmer Skeleton ===================== */
+.shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.03) 25%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.03) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ===================== Tooltip ===================== */
 .tooltip {
-  @apply absolute z-50 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg 
-         shadow-lg border border-gray-700 opacity-0 invisible 
-         transition-all duration-200 pointer-events-none;
+  @apply absolute z-50 px-3 py-2 text-xs rounded-lg pointer-events-none opacity-0 invisible transition-all duration-200;
+  background: rgba(8, 11, 24, 0.95);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
 }
 
 .tooltip-trigger:hover .tooltip {
   @apply opacity-100 visible;
+}
+
+/* ===================== Progress Bar ===================== */
+.progress-bar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  transition: width 0.8s cubic-bezier(.22, .68, 0, 1.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+/* ===================== Tag Badge ===================== */
+.badge {
+  @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-indigo {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.badge-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-red {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #22d3ee;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+/* ===================== Divider ===================== */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+  margin: 1.5rem 0;
+}
+
+/* ===================== Stat Box ===================== */
+.stat-box {
+  background: rgba(8, 11, 24, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.stat-box:hover {
+  background: rgba(19, 28, 46, 0.8);
+  border-color: rgba(99, 102, 241, 0.35);
 }
